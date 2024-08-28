@@ -85,7 +85,19 @@ namespace Comanda.Api.Controllers
                 NomeCliente = comanda.NomeCliente
             };
             // Adicona a comanda ao banco
+            //
             await _context.Comandas.AddAsync(novaComanda);
+
+
+            var novoItemComanda = new ComandaItem()
+            {
+                Comanda = novaComanda,
+                CardapioItemId = comanda.CardapioItens[0]
+            };
+
+            // adicionando o no item na comanda
+            //INSERT INTO ComandaItems (Id, CardapioItemId)
+            await _context.ComandaItems.AddAsync(novoItemComanda);
 
             // Salva a comanda 
             await _context.SaveChangesAsync( );
@@ -94,7 +106,7 @@ namespace Comanda.Api.Controllers
             return CreatedAtAction("GetComanda", new { id = 1 }, comanda);
         }
 
-        // DELETE: api/Comandas/5
+        // DELETE: api/Comandas/5   
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComanda(int id)
         {
