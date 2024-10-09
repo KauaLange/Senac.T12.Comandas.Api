@@ -1,3 +1,4 @@
+using Comanda.Api;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeComandas.BancoDeDados;
 
@@ -29,6 +30,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// AQUI criação do banco
+using (var e = app.Services.CreateScope())
+{
+    var banco = e.ServiceProvider.
+        GetRequiredService<ComandaContexto>();
+    banco.Database.Migrate();
+    
+    // Semear os dados iniciais
+    InicializarDados.Semear(banco); 
+}
+    
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
