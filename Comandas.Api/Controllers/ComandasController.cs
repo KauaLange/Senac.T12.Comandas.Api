@@ -36,6 +36,8 @@ namespace Comandas.Api.Controllers
                                     {
                                         Id = ci.Id,
                                         Titulo = ci.CardapioItem.Titulo,
+                                        Preco = ci.CardapioItem.Preco,
+                                        idProduto = ci.CardapioItemId
                                     })
                                     .ToList()
                 })
@@ -72,7 +74,10 @@ namespace Comandas.Api.Controllers
                                         .Select(cii => new ComandaItensGetDto
                                         {
                                             Id = cii.Id,
-                                            Titulo = cii.CardapioItem.Titulo
+                                            Titulo = cii.CardapioItem.Titulo,
+                                            Preco = cii.CardapioItem.Preco,
+                                            idProduto = cii.CardapioItemId
+
                                         })
                                     .ToListAsync();
 

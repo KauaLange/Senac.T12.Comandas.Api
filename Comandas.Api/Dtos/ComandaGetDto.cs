@@ -12,5 +12,8 @@
     {
         public int Id { get; set; }
         public string Titulo { get; set; } // VEM da tabela CardapioItem 
+        public decimal Preco { get; set; } 
+        public int idProduto { get; set; }
+
     }
 }
